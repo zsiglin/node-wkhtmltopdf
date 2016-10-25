@@ -81,8 +81,20 @@ function wkhtmltopdf(input, options, callback) {
     }
   });
 
+  var isArray = input instanceof Array;
   var isUrl = /^(https?|file):\/\//.test(input);
-  args.push(isUrl ? quote(input) : '-');    // stdin if HTML given directly
+
+  if(isArray){
+  	input.forEach(function(el, i){
+  		args.push(quote(el));
+  	});
+  } else if(isUrl){
+  	args.push(quote(input));
+
+  } else {
+  	args.push('-');
+  }
+
   args.push(output ? quote(output) : '-');  // stdout if no output file
 
   // show the command that is being run if debug opion is passed
@@ -175,7 +187,7 @@ function wkhtmltopdf(input, options, callback) {
   }
 
   // write input to stdin if it isn't a url
-  if (!isUrl) {
+  if (!isUrl && !isArray){
     if (isStream(input)) {
       input.pipe(child.stdin);
     } else {
