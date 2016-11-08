@@ -1,8 +1,10 @@
-node-wkhtmltopdf [![Build Status](https://travis-ci.org/devongovett/node-wkhtmltopdf.svg)](https://travis-ci.org/devongovett/node-wkhtmltopdf)
+node-wkhtmltopdf fork
 ================
 
 A Node.js wrapper for the [wkhtmltopdf](http://wkhtmltopdf.org/) command line tool.  As the name implies, 
 it converts HTML documents to PDFs using WebKit.
+
+This fork adds support for multi-URL input as well as the ability to specify a timeout on the wkhtmltopdf binary.
 
 ## Installation
 
