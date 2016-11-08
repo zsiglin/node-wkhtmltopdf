@@ -4,7 +4,9 @@ node-wkhtmltopdf fork
 A Node.js wrapper for the [wkhtmltopdf](http://wkhtmltopdf.org/) command line tool.  As the name implies, 
 it converts HTML documents to PDFs using WebKit.
 
-This fork adds support for multi-URL input as well as the ability to specify a timeout on the wkhtmltopdf binary.
+**This fork adds support for multi-URL input as well as the ability to specify a timeout on the wkhtmltopdf process.**
+
+In order to utilize the timeout option the GNU timeout binary must be present on your system and in your path
 
 ## Installation
 
@@ -30,6 +32,14 @@ var wkhtmltopdf = require('wkhtmltopdf');
 
 // URL
 wkhtmltopdf('http://google.com/', { pageSize: 'letter' })
+  .pipe(fs.createWriteStream('out.pdf'));
+  
+// Multiple URLs
+wkhtmltopdf(['http://google.com/', 'http://github.com/'], { pageSize: 'letter' })
+  .pipe(fs.createWriteStream('out.pdf'));
+  
+// Kill the wkhtmltopdf process after 20 seconds to prevent hanging
+wkhtmltopdf('http://www.google.com', { timeout: 20 })
   .pipe(fs.createWriteStream('out.pdf'));
   
 // HTML
