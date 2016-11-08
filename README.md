@@ -6,7 +6,7 @@ it converts HTML documents to PDFs using WebKit.
 
 **This fork adds support for multi-URL input as well as the ability to specify a timeout on the wkhtmltopdf process.**
 
-In order to utilize the timeout option the GNU timeout binary must be present on your system and in your path
+In order to utilize the timeout option the GNU timeout binary must be present on your system and in your PATH.
 
 ## Installation
 
@@ -16,9 +16,12 @@ The **easiest way** to do this is to
 [download](http://wkhtmltopdf.org/downloads.html#stable) a prebuilt version for your system.  **DO NOT** try to use
 the packages provided by your distribution as they may not be using a patched Qt and have missing features.
 
-Finally, to install the node module, use `npm`:
+This package is not yet available as an npm module. You must reference it directly in your package.json file.
 
-    npm install wkhtmltopdf
+`  "dependencies": {
+    "wkhtmltopdf": "git+https://github.com/zsiglin/node-wkhtmltopdf.git"
+  }
+`
     
 Be sure the `wkhtmltopdf` command line tool is in your PATH when you're done installing.  If you don't want to do this for some reason, you can change
 the `require('wkhtmltopdf').command` property to the path to the `wkhtmltopdf` command line tool.
