@@ -1,4 +1,4 @@
-node-wkhtmltopdf fork
+node-wkhtmltopdf fork with multi-URL/GNU timeout support
 ================
 
 A Node.js wrapper for the [wkhtmltopdf](http://wkhtmltopdf.org/) command line tool.  As the name implies, 
