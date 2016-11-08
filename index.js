@@ -20,7 +20,9 @@ function wkhtmltopdf(input, options, callback) {
   }
 
   var output = options.output;
+  var timeout = options.timeout;
   delete options.output;
+  delete options.timeout;
 
   // make sure the special keys are last
   var extraKeys = [];
@@ -48,7 +50,15 @@ function wkhtmltopdf(input, options, callback) {
     Array.prototype.splice.apply(keys, spliceArgs);
   }
 
-  var args = [wkhtmltopdf.command, '--quiet'];
+  var args = [];
+
+  if(timeout){
+  	args.push(`timeout ${timeout}`);
+  }
+
+  args.push(wkhtmltopdf.command);
+  args.push('--quiet');
+
   keys.forEach(function(key) {
     var val = options[key];
     if (key === 'ignore' || key === 'debug' || key === 'debugStdOut') { // skip adding the ignore/debug keys
