@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "is-stream": "^1.0.1",
-    "slang": ">=0.2"
+    "slang": ">=0.2",
+    "stream-cache": "0.0.2"
   },
   "repository": {
     "type": "git",

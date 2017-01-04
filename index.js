@@ -1,6 +1,7 @@
 var spawn = require('child_process').spawn;
 var slang = require('slang');
 var isStream = require('is-stream');
+var StreamCache = require('stream-cache');
 
 function quote(val) {
   // escape and quote the value if it is a string and this isn't windows
@@ -124,6 +125,11 @@ function wkhtmltopdf(input, options, callback) {
   }
 
   var stream = child.stdout;
+  child.stdout.on('data', function(){ });
+
+  // save the stream to replay it later after we get a successful exit code
+  var cachedStream = new StreamCache();
+  stream.pipe(cachedStream);
 
   // call the callback with null error when the process exits successfully
   child.on('exit', function(code) {
@@ -131,7 +137,7 @@ function wkhtmltopdf(input, options, callback) {
       stderrMessages.push('wkhtmltopdf exited with code ' + code);
       handleError(stderrMessages);
     } else if (callback) {
-      callback(null, stream); // stream is child.stdout
+      callback(null, cachedStream); // stream is child.stdout
     }
   });
 
